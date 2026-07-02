@@ -13,6 +13,12 @@ lazy val root = (project in file(".")).settings(
     "org.typelevel" %% "cats-effect-std" % "3.5.4",
     // better monadic for compiler plugin as suggested by documentation
     compilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
-    "org.typelevel" %% "munit-cats-effect-3" % "1.0.7" % Test
+    "org.typelevel" %% "munit-cats-effect-3" % "1.0.7" % Test,
+    // HTTP client + JSON decoding for fetching product pricing data
+    "org.http4s" %% "http4s-ember-client" % "0.23.30",
+    "org.http4s" %% "http4s-circe" % "0.23.30",
+    "io.circe" %% "circe-generic" % "0.14.13",
+    "io.circe" %% "circe-literal" % "0.14.13" % Test,
+    "org.http4s" %% "http4s-dsl" % "0.23.30" % Test
   )
 )
