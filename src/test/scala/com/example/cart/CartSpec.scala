@@ -30,4 +30,25 @@ class CartSpec extends munit.FunSuite {
     assertEquals(original.items, Map(bread -> 2))
     assertEquals(updated.items, Map(bread -> 3))
   }
+
+  test("empty cart has zero subtotal, tax, and total") {
+    assertEquals(Cart.empty.subtotal, BigDecimal("0.00"))
+    assertEquals(Cart.empty.tax, BigDecimal("0.00"))
+    assertEquals(Cart.empty.total, BigDecimal("0.00"))
+  }
+
+  test("subtotal sums price * quantity across all items") {
+    val cart = Cart.empty.addItem(bread, 2).addItem(peanutButter, 1)
+    assertEquals(cart.subtotal, BigDecimal("10.79"))
+  }
+
+  test("tax is 12.5% of the subtotal, rounded half-up to 2 decimal places") {
+    val cart = Cart.empty.addItem(bread, 2).addItem(peanutButter, 1)
+    assertEquals(cart.tax, BigDecimal("1.35"))
+  }
+
+  test("total is subtotal plus tax, matching the README's worked example") {
+    val cart = Cart.empty.addItem(bread, 2).addItem(peanutButter, 1)
+    assertEquals(cart.total, BigDecimal("12.14"))
+  }
 }
